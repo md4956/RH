@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for
-from run import app
-from db import models as dbModel
+from config import app
+from db import models as dbmodel
 from db.models import db
 
 
@@ -15,7 +15,7 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['pass']
-        print(username, password)
+        dbmodel.load_user(username=username, password=password)
         return '<h1>Weeeeeellllllcooooomeeeee!!!</h1>'
     else:
         return render_template('login/login.html')
@@ -27,7 +27,7 @@ def signup():
         username = request.form['username']
         email = request.form['email']
         password = request.form['pass']
-        dbModel.create_new_user(username, password, email)
+        dbmodel.create_new_user(username, password, email)
         return redirect(url_for('login'))
     else:
         return render_template('signup/signup.html')
