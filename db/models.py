@@ -1,6 +1,6 @@
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
-from views import app
+from config import app
 
 db = SQLAlchemy(app)
 
@@ -21,8 +21,20 @@ def create_new_user(username, password, email):
     print('new user "'+username+'" has been created.')
 
 
-def load_user(**kwargs):  # need to work on here.
-    print(kwargs.keys())
-    for key, value in kwargs.items():
-        print(key, value, ' *****')
-    # User.query.filter_by(username=username)
+def load_user(**kwargs):  # need to complete here.
+    print('kwargs: ', kwargs)
+    for key in kwargs:
+        if key == 'username':
+            username = kwargs['username']
+            password = kwargs['password']
+            # return User.query.filter_by(username=username).first()
+            return True
+        elif key == 'email':
+            email = kwargs['email']
+            password = kwargs['password']
+            return True
+        else:
+            pass
+    return False
+
+
